@@ -10,15 +10,17 @@ async function repro() {
       rollupPluginCommonJS(),
     ],
     external(id, importer, resolved) {
+      // Marking the code as external causes something not to resolve, so this binary exits early.
+      console.info('marking', id, 'as external', `resolved=${resolved}`);
+
+      // If we always return true here, this method is called fewer times (the program crashes earlier).
       if (resolved) {
-        console.debug('treat the neighbour as external, do not include in output:', id);
         return true;
       }
     },
   });
 
   // NEVER GETS HERE
-
   console.info('About to `bundle.generate`...');
   const out = await bundle.generate({
     format: 'es',
