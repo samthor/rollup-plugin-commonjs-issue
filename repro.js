@@ -5,7 +5,7 @@ const rollupPluginCommonJS = require('rollup-plugin-commonjs');
 async function repro() {
   console.info('About to `rollup.rollup`...');
   const bundle = await rollup.rollup({
-    input: ['test.js'],
+    input: ['code/test.js'],
     plugins: [
       rollupPluginCommonJS(),
     ],
